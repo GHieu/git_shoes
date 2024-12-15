@@ -17,13 +17,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
 
     ?>
-    <h1>Add New Category</h1>
-    <form action="?mod=categories&ac=add" method="POST" enctype="multipart/form-data">
-        <label for="name">Category Name:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
+    <div class="container my-5">
+        <div class="text-center mb-4">
+            <h1 class="text-primary display-4">Thêm Danh Mục</h1>
+            <p class="text-muted">Hãy nhập đầy đủ thông tin Danh Mục cần thêm.</p>
+        </div>
+        <form action="?mod=categories&ac=add" method="POST" enctype="multipart/form-data"
+            class="shadow-lg p-5 rounded bg-light">
+            <div class="mb-3">
+                <label for="name" class="form-label">Tên Danh Mục:</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
 
-        <button type="submit" name="submit">Add Category</button>
-    </form>
+            <button type="submit" name="submit" class="btn btn-primary w-100 py-2">
+                <i class="bi bi-plus-circle"></i> Thêm Danh Mục
+            </button>
+        </form>
+    </div>
     <?php
 }
 ?>

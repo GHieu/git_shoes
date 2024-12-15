@@ -9,3 +9,14 @@
 .btn-desgin {
   background-color: red;
 }
+
+/* Customize button styles as needed */
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn-group .btn {
+  margin-bottom: 5px;
+}

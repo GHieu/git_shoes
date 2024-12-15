@@ -77,6 +77,34 @@ class Category extends Db
         return $this->exeQuery($sql);
     }
 
+    public function getAllCategories()
+    {
+        $sql = "SELECT category_id, name FROM categories";
+        return $this->exeQuery($sql);
+    }
+
+
+    public function getPage($curentPage = 1, $sizePage = 5)
+    {
+        $offset = ($curentPage - 1) * $sizePage;
+
+        // Truy vấn kết hợp với LEFT JOIN để tính số lượng sản phẩm
+        $sql = "SELECT categories.*, COUNT(products.product_id) AS quantity 
+            FROM categories 
+            LEFT JOIN products ON categories.category_id = products.category_id 
+            GROUP BY categories.category_id 
+            LIMIT $offset, $sizePage";
+
+        return $this->exeQuery($sql);
+    }
+
+
+    public function getCountPage($sizePage)
+    {
+        $sql = "SELECT COUNT(*) AS total FROM categories";
+        $count = $this->queryone($sql)['total'];
+        return ceil($count / $sizePage);
+    }
 
 }
 ?>

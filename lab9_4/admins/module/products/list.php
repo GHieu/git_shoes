@@ -1,11 +1,18 @@
 <?php
+$listcategories = $products->getAllCategories();
 $sizePage = 5;
 $page = isset($_GET["page"]) ? $_GET["page"] : 1;
 $listproducts = $products->getPage($page, $sizePage);
 $countPage = $products->getCountPage($sizePage);
-
-
 ?>
+
+
+<div class="input-group w-100 container" style="margin-top:50px">
+    <input type="text" name="q" class="form-control" placeholder="Nhập từ khóa tìm kiếm...">
+    <span class="input-group-append">
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </span>
+</div>
 <!-- Danh sách sản phẩm -->
 <div class="container my-5">
     <div class="text-center mb-4">
@@ -30,7 +37,7 @@ $countPage = $products->getCountPage($sizePage);
                 <tr class="align-middle">
                     <td class="text-center"><?= $row['product_id']; ?></td>
                     <td><?= htmlspecialchars($row['name']); ?></td>
-                    <td><?= htmlspecialchars($row['namecate']); ?></td>
+                    <td><?= htmlspecialchars($row['category_id']); ?></td>
                     <td><?= htmlspecialchars($row['description']); ?></td>
                     <td class="text-end"><?= number_format($row['price'], 2) . " VNĐ"; ?></td>
                     <td class="text-center">
@@ -41,14 +48,18 @@ $countPage = $products->getCountPage($sizePage);
                             <span class="text-muted">No Image</span>
                         <?php } ?>
                     </td>
-                    <td class="text-center"><?= $row['quantity']; ?></td>
+                    <td class="text-center"><?= $row['quantity2']; ?></td>
                     <td class="text-center">
-                        <a class="btn btn-danger btn-sm m-1" href="?mod=products&ac=delete&id=<?= $row['product_id']; ?>">
-                            <i class="bi bi-trash-fill"></i> Delete
-                        </a>
-                        <a class="btn btn-warning btn-sm m-1" href="?mod=products&ac=update&id=<?= $row['product_id']; ?>">
-                            <i class="bi bi-pencil-fill"></i> Edit
-                        </a>
+                        <div class="btn-group">
+                            <!-- Liệt kê sản phẩm -->
+                            <a style="margin-right:20px" href="?mod=products&ac=delete&id=<?= $row['product_id']; ?>"
+                                class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash-fill"></i> Xoá
+                            </a>
+                            <a class="btn btn-warning btn-sm" href="?mod=products&ac=update&id=<?= $row['product_id']; ?>">
+                                <i class="bi bi-pencil-fill"></i> Sửa
+                            </a>
+                        </div>
                     </td>
                 </tr>
             <?php } ?>

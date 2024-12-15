@@ -15,7 +15,7 @@ class Product extends Db
 	}
 	public function add($arr)
 	{
-		$sql = "insert into products (name, category_id, image_url, description, price, quantity) values (:name, :category_id, :image_url, :description, :price, :quantity)";
+		$sql = "insert into products (name, category_id, image_url, description, price, quantity2) values (:name, :category_id, :image_url, :description, :price, :quantity2)";
 		$this->exeNoneQuery($sql, $arr);
 	}
 	public function Remove($product_id)
@@ -40,7 +40,7 @@ class Product extends Db
         description = :description,
         price = :price,
         image_url = :image_url,
-        quantity = :quantity
+        quantity2 = :quantity2
             WHERE 
         product_id = :product_id
         ";
@@ -54,13 +54,25 @@ class Product extends Db
 		return $this->exeQuery($sql, ["product_id" => $product_id])[0] ?? "";
 	}
 
+
+
+	public function getAllCategories()
+	{
+		$sql = "SELECT category_id, name FROM categories";
+		return $this->exeQuery($sql);
+	}
+
+
 	public function getPage($curentPage = 1, $sizePage = 5)
 	{
 		$offset = ($curentPage - 1) * $sizePage;
-		$sql = "SELECT products.*, categories.name as namecate 
-        FROM products 
-        JOIN categories ON products.category_id = categories.category_id 
-        LIMIT $offset, $sizePage";
+
+		// Truy vấn kết hợp với LEFT JOIN để tính số lượng sản phẩm
+		$sql = "SELECT products.*, COUNT(categories.category_id) AS quantity 
+            FROM products 
+            LEFT JOIN categories ON products.product_id = categories.category_id 
+            GROUP BY products.product_id 
+            LIMIT $offset, $sizePage";
 		return $this->exeQuery($sql);
 	}
 
@@ -71,4 +83,4 @@ class Product extends Db
 		return ceil($count / $sizePage);
 	}
 }
-?>-
+?>

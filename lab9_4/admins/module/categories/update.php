@@ -11,36 +11,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $categories->Update($arr);
     ?>
-<script>
-window.location.href = "?mod=categories";
-</script>
-<?php
+    <script>
+        window.location.href = "?mod=categories";
+    </script>
+    <?php
 } else {
-    // Lấy category_id từ URL
-    $category_id = isset($_GET["id"]) ? $_GET["id"] : 0; // Lấy từ tham số id trong URL
-
-    // Truy vấn thông tin sản phẩm từ database
-    $category = $categories->getById($category_id); // Hàm `getById` cần được định nghĩa
-
-    // Kiểm tra nếu sản phẩm không tồn tại
-    if (!$category) {
+    $category_id = isset($_GET["id"]) ? $_GET["id"] : 0; // Lấy product_id từ URL
+    $categories = $categories->getById($category_id); // Lấy thông tin sản phẩm từ DB
+    if (!$categories) {
         ?>
-<p style='color: red;'>Danh mục cần cập nhật dữ liệu không tìm thấy</p>
-<?php
+        <p style="color: red;">Sản phẩm không tồn tại</p>
+        <?php
         exit;
     }
     ?>
 
-<h1>Update category</h1>
-<form action="?mod=categories&ac=update" method="POST" enctype="multipart/form-data">
-    <!-- Hidden field chứa product_id -->
-    <input type="hidden" name="category_id" value="<?php echo $category["category_id"]; ?>">
+    <div class="container my-5">
+        <div class="text-center mb-4">
+            <h1 class="text-primary display-4">Cập Nhật Danh Mục</h1>
+            <p class="text-muted">Chỉnh sửa thông tin danh mục dưới đây.</p>
+        </div>
+        <form action="?mod=categories&ac=update" method="POST" enctype="multipart/form-data"
+            class="shadow-lg p-5 rounded bg-light">
 
-    <label for="name">Product Name:</label><br>
-    <input type="text" id="name" name="name" value="<?php echo $category["name"]; ?>" required><br><br>
+            <div class="mb-3">
+                <label for="category_id" class="form-label">Mã Danh Mục:</label>
+                <input type="text" id="category_id" class="form-control" value="<?php echo $categories['category_id']; ?>"
+                    disabled>
+            </div>
 
-    <button type="submit" name="submit">Update Product</button>
-</form>
-<?php
+            <div class="mb-3">
+                <label for="name" class="form-label">Tên Danh Mục:</label>
+                <input type="text" id="name" name="name" class="form-control" value="<?php echo $categories['name']; ?>"
+                    required>
+            </div>
+
+            <button type="submit" name="submit" class="btn btn-warning w-100 py-2">
+                <i class="bi bi-pencil-fill"></i> Cập Nhật Danh Mục
+            </button>
+        </form>
+    </div>
+    <?php
 }
 ?>

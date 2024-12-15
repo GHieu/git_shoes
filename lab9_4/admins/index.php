@@ -26,14 +26,6 @@ if (!isset($_SESSION["admin_login"])) {
 }
 ?>
 
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,6 +43,11 @@ if (!isset($_SESSION["admin_login"])) {
     <link rel="stylesheet" href="resources/css/dist/css/adminlte.min.css">
 
     <link rel="stylesheet" href="resources/css/main.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 
 </head>
 
@@ -62,6 +59,14 @@ if (!isset($_SESSION["admin_login"])) {
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <!-- Navbar Search -->
+                <li class="nav-item">
+                    <a href="index.php?mod=logout">
+                        Đăng xuất
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -143,8 +148,6 @@ if (!isset($_SESSION["admin_login"])) {
                                 </li>
                             </ul>
                         </li>
-
-
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -154,30 +157,10 @@ if (!isset($_SESSION["admin_login"])) {
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>QUẢN LÝ</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">General Form</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div><!-- /.container-fluid -->
-            </section>
+
+
 
             <!-- Main content -->
-
-
-
-
-
-
             <div class="content-box-content">
 
                 <?php include "mod.php"; ?>
@@ -214,6 +197,7 @@ if (!isset($_SESSION["admin_login"])) {
             bsCustomFileInput.init();
         });
     </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
