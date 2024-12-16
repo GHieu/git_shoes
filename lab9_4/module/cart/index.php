@@ -1,11 +1,31 @@
 <?php
-$ac= getIndex("ac");
+require_once '../../config/config.php';
+require_once ROOT . '/classes/Cart.class.php';
 
-if ($ac=="add")
-{
-	$quantity = getIndex("quantity", 1);
-	$id = getIndex("id");
-	$cart->add($id, $quantity);
+$cart = new Cart();
+$action = getIndex('action', 'view');
+
+switch ($action) {
+    case 'add':
+        $product_id = postIndex('product_id');
+        $quantity = postIndex('quantity', 1);
+        $cart->add($product_id, $quantity);
+        break;
+
+    case 'remove':
+        $product_id = getIndex('product_id');
+        $cart->remove($product_id);
+        break;
+
+    case 'edit':
+        $product_id = postIndex('product_id');
+        $quantity = postIndex('quantity');
+        $cart->edit($product_id, $quantity);
+        break;
+
+    case 'view':
+    default:
+        $cart->show();
+        break;
 }
-//Biến $cart được tạo từ trang chủ index.php
-$cart->show();
+?>

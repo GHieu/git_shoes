@@ -29,7 +29,7 @@ function requestIndex($index, $value = '')
     return $data;
 }
 
-// Kiểm tra đăng nhập (ví dụ thêm hàm mới)
+// Kiểm tra đăng nhập 
 function isLoggedIn()
 {
     return isset($_SESSION['customer_id']);

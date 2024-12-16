@@ -1,38 +1,32 @@
 <?php
-$configDB = array();
-$configDB["host"] = "localhost";
-$configDB["database"] = "webgiay";
-$configDB["username"] = "root";
-$configDB["password"] = "";
+// Bao gồm file config.php từ ngoài thư mục include
+include_once "include/function.php";  // Đảm bảo ROOT là đường dẫn gốc
 
-// Định nghĩa các hằng số cấu hình
-define("HOST", "localhost");
-define("DB_NAME", "webgiay");
-define("DB_USER", "root");
-define("DB_PASS", "");
-define('ROOT', dirname(dirname(__FILE__)));
-// Thư mục tuyệt đối trước của config; ví dụ: c:/wamp/www/lab/
-define("BASE_URL", "http://" . $_SERVER['SERVER_NAME'] . "/lab/"); // Địa chỉ website
-
-// Hàm kết nối cơ sở dữ liệu
-function db_connect()
+// Tự động load class
+function loadClass($c)
 {
-    // Sửa "localhost" thành chuỗi có dấu nháy kép
-    $conn = new mysqli(HOST, DB_USER, DB_PASS, DB_NAME);
-
-    if ($conn->connect_error) {
-        die("Kết nối thất bại: " . $conn->connect_error);
-    }
-
-    // Thiết lập charset để hỗ trợ tiếng Việt
-    $conn->set_charset("utf8mb4");
-
-    return $conn;
+    include ROOT . "/classes/" . $c . ".class.php";
 }
 
-// Kiểm tra trạng thái đăng nhập
-function isLoggedIn()
+// Lấy giá trị từ $_GET với mặc định
+function getIndex($index, $value = '')
 {
-    return isset($_SESSION['customer_id']);
+    $data = isset($_GET[$index]) ? $_GET[$index] : $value;
+    return $data;
 }
+
+// Lấy giá trị từ $_POST với mặc định
+function postIndex($index, $value = '')
+{
+    $data = isset($_POST[$index]) ? $_POST[$index] : $value;
+    return $data;
+}
+
+// Lấy giá trị từ $_REQUEST với mặc định
+function requestIndex($index, $value = '')
+{
+    $data = isset($_REQUEST[$index]) ? $_REQUEST[$index] : $value;
+    return $data;
+}
+
 ?>
