@@ -3,6 +3,7 @@ if (!defined("ROOT"))
 {
 	echo "Err!"; exit;	
 }
+include_once ROOT . '/classes/Book.class.php';
 	$book = new Book();
 	$ac=getIndex("ac", "home");
 	if ($ac=="home")
